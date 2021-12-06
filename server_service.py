@@ -1,18 +1,17 @@
 import datetime
 import time
-from multiprocessing import Queue, Process
+from multiprocessing import Queue
+import threading
 import pymongo
 import numpy as np
 
-mongo_cluster = pymongo.MongoClient("mongodb+srv://mongoAdmin:"
-                                                 "SecureMongoPassword12@"
-                                                 "pyprojectcluster.8qhpp.mongodb.net/"
-                                                 "GreenhouseDB?retryWrites=true&w=majority")
-mongo_database = mongo_cluster["GreenhouseDB"]
+mongo_cluster = pymongo.MongoClient("mongodb+srv://Domos:somoD@cluster0.m8yld.mongodb.net/"
+                                                 "GreenhouseCollection?retryWrites=true&w=majority")
+
+mongo_database = mongo_cluster["GreenhouseCollection"]
 mongo_collection = mongo_database["GreenhouseCollection"]
 
 service_queue = Queue()
-
 SLEEP_INTERVAL = 10
 
 
@@ -40,5 +39,5 @@ def queue_process():
             mongo_collection.insert_one(data)
 
 
-queue_thread = Process(target=queue_process)
+queue_thread = threading.Thread(target=queue_process)
 queue_thread.start()

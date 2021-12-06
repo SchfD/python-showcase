@@ -1,7 +1,7 @@
-from flask import Blueprint, request, Response, render_template, make_response
+from flask import Blueprint, request, Response
 import server_service as service
 
-server_api = Blueprint('server-controller', __name__)
+server_api = Blueprint('server_controller', __name__)
 
 
 @server_api.route('/add_data', methods=['POST'])
